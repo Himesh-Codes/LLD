@@ -164,5 +164,32 @@ It’s always a good idea to check with the interviewer on what all is expected 
 
 ## References
 
-- SOLID Principle Concept: https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
+- SOLID (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion (High level module not depend on low level module)) Principle Concept: https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
 - SOLID Code Explainations : https://blog.algomaster.io/p/solid-principles-explained-with-code
+- DRY (Don't Repeat Yourself - Avoid duplication of logic/code): Steps:- Identify Repetitive Code, Extract Common Functionality, Use Inheritance and Composition, Leverage Libraries and Frameworks, Refactor Regularly(it's an ongoing process) https://blog.algomaster.io/p/082450d8-0e7b-4447-a8dc-b7308e45f048
+- YAGNI (You are'nt gonna need it: Implement only whatever need now not on forseen items): https://blog.algomaster.io/p/8c3c7da7-885b-4a9c-a6e4-70ee02de4772
+- KISS (Keep it simple stupid: Avoid over engineering, leverage on whatever exist, inbuit library, etc..): https://blog.algomaster.io/p/21b57678-b351-4ed4-b390-3b6308af2f7d
+
+## Common Design Patterns
+
+### Creational Patterns
+
+- Singleton (https://blog.algomaster.io/p/singleton-design-pattern): Class to have only one object created,
+  achieved by making the constructor private to avoid other classes creates it's object and providing a static method for external objects to access it.
+
+  Singleton is useful in scenarios like:
+  Managing Shared Resources (database connections, thread pools, caches, configuration settings)
+  Coordinating System-Wide Actions (logging, print spoolers, file managers)
+  Managing State (user session, application state)
+
+  Note: Consider alternative approaches like dependency injection when possible to promote loose coupling and testability.
+
+  [Code](./Design%20Patterns/singleton.java)
+
+- Factory (https://refactoring.guru/design-patterns/factory-method): The subclasses can create an object of one class with help of a factory class, Factory Method Pattern says that just define an interface or abstract class for creating an object but let the subclasses decide which class to instantiate, with providing the type.
+  https://www.javatpoint.com/factory-method-design-pattern
+
+Usage of Factory Design Pattern:
+When a class doesn't know what sub-classes will be required to create
+When a class wants that its sub-classes specify the objects to be created.
+When the parent classes choose the creation of objects to its sub-classes.
