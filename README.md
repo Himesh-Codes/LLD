@@ -1,5 +1,9 @@
 # LLD (JAVA)
 
+## References
+
+https://github.com/ashishps1/awesome-low-level-design?tab=readme-ov-file
+
 How to answer a LLD question? (https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem)
 
 - Step 1: Clarify Requirements
@@ -174,22 +178,288 @@ It’s always a good idea to check with the interviewer on what all is expected 
 
 ### Creational Patterns
 
-- Singleton (https://blog.algomaster.io/p/singleton-design-pattern): Class to have only one object created,
-  achieved by making the constructor private to avoid other classes creates it's object and providing a static method for external objects to access it.
+#### Singleton (https://blog.algomaster.io/p/singleton-design-pattern): Class to have only one object created,achieved by making the constructor private to avoid other classes creates it's object and providing a static method for external objects to access it.
 
-  Singleton is useful in scenarios like:
-  Managing Shared Resources (database connections, thread pools, caches, configuration settings)
-  Coordinating System-Wide Actions (logging, print spoolers, file managers)
-  Managing State (user session, application state)
+Let’s understand how this Pattern will created:
+4.1. Static Member: This static member ensures that memory is allocated only once, preserving the single instance of the Singleton class.
+4.2. Private Constructor: The Singleton pattern or pattern singleton incorporates a private constructor. This ensures that the class has control over its instantiation process.
+4.3. Static Factory Method: When someone requests an instance, this method either creates a new instance (if none exists) or returns the existing instance to the caller.
 
-  Note: Consider alternative approaches like dependency injection when possible to promote loose coupling and testability.
+Singleton is useful in scenarios like:
+Managing Shared Resources (database connections, thread pools, caches, configuration settings)
+Coordinating System-Wide Actions (logging, print spoolers, file managers)
+Managing State (user session, application state)
 
-  [Code](./Design%20Patterns/singleton.java)
+Note: Consider alternative approaches like dependency injection when possible to promote loose coupling and testability.
 
-- Factory (https://refactoring.guru/design-patterns/factory-method): The subclasses can create an object of one class with help of a factory class, Factory Method Pattern says that just define an interface or abstract class for creating an object but let the subclasses decide which class to instantiate, with providing the type.
-  https://www.javatpoint.com/factory-method-design-pattern
+[Code](./Design%20Patterns/singleton.java)
+
+#### Factory (https://refactoring.guru/design-patterns/factory-method): The subclasses can create an object of one class with help of a factory class, Factory Method Pattern says that just define an interface or abstract class for creating an object but let the subclasses decide which class to instantiate, with providing the type.
+
+https://www.javatpoint.com/factory-method-design-pattern
+
+Let’s understand how this Pattern will created:
+
+1. Creator Interface (Factory Interface): The creator typically contains a method that serves as a factory for creating objects. It may also contain other methods that work with the created objects.
+2. Concrete Creators (Concrete Factories): Concrete Creator classes are subclasses of the Creator that implement the factory method to create specific types of objects.
+3. Product Interface: This is the interface or abstract class for the objects that the factory method creates. The Product defines the common interface for all objects that the factory method can create.
+4. Concrete Products: Concrete Product classes are the actual objects that the factory method creates. Each Concrete Product class implements the Product interface or extends the Product abstract class.
+
+Factory Design Pattern Useful scenarios:
+
+- By the way factory if the factory have multiple products and creation of product involves multiple
+  other object creation we can use Factory Design Pattern avoiding the decoupling on object creations.
+- Document Creation Software: In applications like Microsoft Word or Google Docs, you can create different types of documents
+- Payment Processing Systems: In e-commerce platforms, you might need to handle various payment methods (credit card, PayPal, cryptocurrency)
+- Vehicle Manufacturing: In an automobile factory, different types of vehicles (cars, trucks, motorcycles) need to be produced.
+- Database Connections: In an application that needs to connect to different databases (MySQL, PostgreSQL, SQLite)
+- Report Generation: In a business application, different types of reports (financial reports, sales reports, inventory reports) need to be generate
+- Logging Frameworks: In software that requires logging, different logging mechanisms (console logging, file logging, database logging) can be used.
 
 Usage of Factory Design Pattern:
 When a class doesn't know what sub-classes will be required to create
 When a class wants that its sub-classes specify the objects to be created.
 When the parent classes choose the creation of objects to its sub-classes.
+
+#### Abstract Factory (https://refactoring.guru/design-patterns/abstract-factory): Abstract Factory is a creational design pattern that lets you produce families of related objects without specifying their concrete classes. It is a way of organizing how you create groups of things that are related to each other. It provides a set of rules or instructions that let you create different types of things without knowing exactly what those things are.
+
+https://www.geeksforgeeks.org/abstract-factory-pattern/
+
+Let’s understand how this Pattern will created:
+
+- Abstract Factory Interface (CarFactory): Defines methods for creating cars and their specifications. Abstract Factory serves as a high-level blueprint that defines a set of rules for creating families of related objects. It declares a series of methods, each responsible for creating a particular type of object and ensures that concrete factories adhere to a common interface,
+- Concrete Factories (NorthAmericaCarFactory and EuropeCarFactory): Implement the abstract factory interface to create cars and specifications specific to North America, Europe. It contain the logic for creating specific instances of objects within a family.
+- Abstract Products (Car and CarSpecification interfaces): Define interfaces for cars and specifications to ensure a common structure. It acts as an abstract or interface type that all concrete products within a family must adhere to and provides a unified way for concrete products to be used interchangeably.
+- Concrete Products (Sedan, Hatchback, NorthAmericaSpecification, EuropeSpecification): Implement the interfaces to create specific instances of cars and specifications. They are the actual instances of objects created by concrete factories.
+- Client: Client enjoys the flexibility of seamlessly switching between families of objects by changing the concrete factory instance.
+
+When to use Abstract Factory Pattern:
+
+- Multiple families of related products
+- Flexibility and extensibility: If you need to allow for variations or extensions in the products or their families
+- Encapsulation of creation logic
+- Consistency across product families: If you want to enforce consistency among the products created by different factories.
+
+Abstract Factory Pattern Useful scenarios:
+
+- Document Generation Systems: A system that generates different types of documents (PDF, HTML, Word) based on user requirements.
+- Mutiple Country Spec Vehicle Manufacturing: An automobile company producing different types of vehicles (cars, trucks, motorcycles) with different components (engines, tires, seats), have multiple variations for each vehicle with country wise (Europe, NorthAmerica, India etc..).
+- Database Connection Libraries: A system that needs to support different types of databases (MySQL, PostgreSQL, SQLite).
+
+#### Builder (https://refactoring.guru/design-patterns/builder): Builder is a creational design pattern that lets you construct complex objects step by step, where the construction process can vary based on the type of product being built. The pattern allows you to produce different types and representations of an object using the same construction code.
+
+https://www.geeksforgeeks.org/builder-design-pattern/
+
+Let’s understand how this Pattern will created:
+
+- Product (Computer): The Product is the complex object that the Builder pattern is responsible for constructing.
+- Builder: The Builder is an interface or an abstract class that declares the construction steps for building a complex object.
+- ConcreteBuilder: ConcreteBuilder classes implement the Builder interface, providing specific implementations for building each part of the product.
+- Director: The Director is responsible for managing the construction process of the complex object.
+  It collaborates with a Builder, but it doesn’t know the specific details about how each part of the object is constructed.
+- Client: The Client is the code that initiates the construction of the complex object.
+
+Builder Pattern Useful scenarios:
+
+- By the name suggest we have Product, we can give multiple specification models, let's say Buidling as example, Contompary, Tropical, Tropical Comtompary are options of product, if a builder is dedicated for multiple styles of proudct spcefication and custruct product. We can have a Director which is calling respective builder and get the product build, gives an option to add other builders (other styles).
+- Building a House: A house can have many optional features (garage, swimming pool, garden, multiple floors).
+- Creating a Meal: A meal can have multiple parts (main course, side dish, drink, dessert).
+- Constructing a Computer: A computer has various components (CPU, RAM, storage, GPU, power supply).
+- Constructing a Vacation Package: A vacation package includes flight, hotel, car rental, and activities.
+
+When to use Builder Pattern:
+
+- Complex Object Construction: When you have an object with many optional components or configurations
+- Step-by-Step Construction
+- Avoiding constructors with multiple parameters
+- Immutable Objects: When you want to create immutable objects, and the Builder pattern allows you to construct the object gradually before making it immutable.
+- Configurable Object Creation
+- Common Interface for Multiple Representations: When you want to provide a common interface for constructing different representations of an object.
+
+#### Prototype pattern (https://refactoring.guru/design-patterns/prototype): Prototype is a creational design pattern that lets you copy existing objects without making your code dependent on their classes. The Prototype pattern delegates the cloning process to the actual objects that are being cloned. The pattern declares a common interface for all objects that support cloning. This interface lets you clone an object without coupling your code to the class of that object.
+
+Let’s understand how Prototype Design Pattern will created:
+
+- Prototype Interface (Shape): We define an interface called Shape that acts as the prototype.It declares two methods: clone() for making a copy of itself and draw() for drawing the shape.
+- Concrete Prototype (Circle): We implement the Shape interface with a concrete class Circle. The Circle class has a private field color and a constructor to set the color when creating a circle. It implements the clone() method to create a copy of itself (a new Circle with the same color).
+- Client (ShapeClient): We create a client class, ShapeClient, which will use the prototype to create new shapes. The client has a field shapePrototype representing the prototype it will use. The constructor takes a Shape prototype, and there’s a method createShape() that creates a new shape using the prototype’s clone() method.
+
+`It is basically create an object of any Prototype and use that object reference to call client which have implementation to call clone method of given Prototype concrete class, which will return a new clone of Prototype. `
+
+Useful scenarios:
+
+- Web Application Templates: You can create a prototype of a generic page template and then clone and customize it for different content types. This avoids duplicating code and allows for consistent behavior across different pages.
+- Document Management Systems: A prototype of a generic document structure can be created, and then specific documents are cloned and customized based on this prototype. This reduces the need to create each document from scratch.
+- Game Development: A prototype of a game character (e.g., a generic enemy type) can be created, and then specific characters are cloned and customized with different stats, abilities, and appearances.
+- User Interface Design
+- Configuration Management: A prototype configuration can be created for the most common settings, and then specific configurations are cloned and modified accordingly.
+- Financial Software Systems: A prototype of a financial instrument can be created, and then specific instruments are cloned and customized with different parameters like interest rates, maturities, and credit ratings.
+- E-commerce Product Customization: A prototype product can be created, and then different product variants are cloned and customized based on customer selections.
+- Healthcare Systems: A prototype of a medical form or patient record can be created, and then clones are customized based on specific patient needs or medical conditions.
+- Content Generation for Marketing
+- Automation in Manufacturing: A prototype of a product design can be created, and then customized versions are cloned for different production lines.
+
+When to use this Pattern:
+https://www.geeksforgeeks.org/prototype-design-pattern/
+
+- Creating Objects is Costly: If object creation involves significant resources, such as database or network calls, and you have a similar object available, cloning can be more efficient.
+- Variations of Objects: Instead of creating multiple classes for each variation, you can create prototypes and clone them with modifications.
+- Dynamic Configuration: You can prototype a base configuration and clone it, adjusting the properties as needed.
+- Reducing Initialization Overhead: Creating a clone can be faster than creating an object from scratch, especially when the initialization process is resource-intensive.
+
+### Structural Patterns
+
+#### Adapter (https://refactoring.guru/design-patterns/adapter): Adapter is a structural design pattern that allows objects with incompatible interfaces to collaborate.
+
+Let’s understand how this Pattern will created:
+
+- Target Interface (Printer) : The interface that the client code expects.
+- Adaptee (LegacyPrinter): The existing class with an incompatible interface.
+- Adapter (PrinterAdapter): The class that adapts the LegacyPrinter to the Printer interface.
+- Client Code: The code that interacts with the Printer interface.
+
+Useful scenarios:
+
+- Integrating Legacy Systems with Modern Applications: Create an adapter that wraps the legacy system’s API and converts its methods into the new system’s expected format.
+- Working with Third-Party Libraries: Create an adapter that sits between your application and the third-party library, translating calls from your application to the library and vice versa.
+- Cross-Platform Mobile Applications: Implement platform-specific adapters that translate a common interface into the appropriate API calls for each platform.
+- Database Access Layer: Create an adapter that provides a consistent interface for database operations, regardless of the underlying database system.
+- API Gateway in Microservices Architecture: An API Gateway can act as an adapter, translating client requests into the appropriate service-specific API calls.
+- Middleware Integration: Create an adapter that converts your application’s data format into the format required by the middleware or ESB.
+- Message Queue Systems: Create an adapter that standardizes the message queue operations, allowing your application to interact with different systems through a unified interface.
+- Payment Gateway Integration: An adapter can be created for each payment gateway, providing a consistent payment processing interface across the platform.
+- Data Conversion Utilities: Your application needs to work with different data formats (e.g., JSON, XML, CSV) but expects data in a consistent format.
+- Internationalization and Localization: Create an adapter that provides a uniform interface for localization, hiding the differences between various localization libraries.
+
+When to use this Pattern:
+
+- Integration of Existing Code: When you have existing code or components with interfaces that are incompatible with the interfaces expected by new code or systems.
+- Reuse of Existing Functionality: When you want to reuse classes or components that provide valuable functionality but don’t conform to the desired interface. The Adapter pattern enables you to reuse existing code by creating an adapter that makes it compatible.
+- Interoperability: The Adapter pattern acts as a bridge, allowing systems with incompatible interfaces to collaborate effectively and operate toghether.
+- Client-Server Communication: Adapters help in translating requests and responses between client and server, ensuring smooth communication despite interface differences.
+- Third-Party Library Integration: Adapters make it possible to use external components by providing a compatible interface for the rest of the application.
+
+#### Facade (https://refactoring.guru/design-patterns/facade): Facade is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes. Imagine a building, the facade is the outer wall that people see, but behind it is a complex network of wires, pipes, and other systems that make the building function. The facade pattern is like that outer wall. It hides the complexity of the underlying system and provides a simple interface that clients can use to interact with the system.
+
+https://www.geeksforgeeks.org/facade-design-pattern-introduction/
+
+Let’s understand how Prototype Design Pattern will created:
+
+Facade (Compiler) : Facade knows which subsystem classes are responsible for a request. It delegate client requests to appropriate subsystem objects.
+
+- Subsystem classes (Scanner, Parser, ProgramNode, etc.) : It implement subsystem functionality. It handle work assigned by the Facade object. It have no knowledge of the facade; that is, they keep no references to it.
+
+- Facade Method Design Pattern collaborate in different way
+  Client communicate with the subsystem by sending requests to Facade, which forwards them to the appropriate subsystem objects.
+  The Facade may have to do work of its own to translate it inheritance to subsystem interface.
+  Clients that use the Facade don’t have to access its subsystem objects directly.
+
+Useful scenarios:
+
+- Enterprise Resource Planning (ERP) Systems : A facade can be created to provide a simplified interface for common operations that require interaction with multiple modules, such as generating a financial report that pulls data from finance, inventory, and sales.
+- E-commerce Platforms : A facade can be created to manage the entire order processing workflow, providing a single method to place an order, which then handles payment, inventory check, order creation, and shipping arrangements.
+- Home Automation Systems : A facade can provide a unified interface for common scenarios like "turn on all lights" or "set home to vacation mode," which would internally call the appropriate methods for each device.
+- Microservices Architecture : A facade can provide a unified API that aggregates calls to multiple microservices, simplifying the interaction for the client.
+- Customer Relationship Management (CRM) Systems : A facade can simplify the management of customer data by providing a unified interface for tasks like getCustomerOverview() or updateCustomerRecord(), which might involve interaction with multiple CRM modules.
+- Video Game Development : A facade can provide a simplified interface for common game operations like startGame(), loadLevel(), or playSoundEffect(), which internally manage the interactions with the various subsystems.
+- Banking Systems : A facade can provide a simplified interface for customer-facing operations like transferFunds() or applyForLoan(), coordinating the necessary backend interactions.
+- Hotel Management Systems : Facade can provide a simplified interface for hotel staff, such as checkInGuest() or processPayment(), which would internally coordinate with the necessary subsystems.
+- Healthcare Management Systems : A facade can provide a unified interface for healthcare providers, such as registerPatient() or scheduleAppointment(), coordinating the necessary operations across subsystems.
+
+When to use this Pattern:
+
+- A Facade provide a simple default view of the subsystem that is good enough for most clients. Only clients needing more customizability will need to look beyond the facade.
+- There are many dependencies between clients and the implementation classes of an abstraction.
+- A Facade to decouple the subsystem from clients and other subsystems, thereby promoting subsystem independence and portability.
+- Facade define an entry point to each subsystem level. If subsystem are dependent, then you can simplify the dependencies between them by making them communicate with each other solely through their facades.
+
+#### Decorator (https://refactoring.guru/design-patterns/decorator): Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors, dynamically without altering their structure.
+
+Let’s understand how Prototype Design Pattern will created:
+https://www.geeksforgeeks.org/decorator-design-pattern-in-java-with-example/
+
+- Component Interface (Pizza): An interface or abstract class that defines the core functionality. This is the base type for both concrete components and decorators.
+- Concrete Component (PlainPizza): A class that implements the Component interface and provides the basic behavior.
+- Abstract Decorator (PizzaDecorator): An abstract class that implements the Component interface and has a reference to a Component object. This class defines the interface for the decorators and includes a reference to a Component instance.
+- Concrete Decorators (CheeseDecorator, PepperoniDecorator, MushroomDecorator, OliveDecorator): Classes that extend the Decorator class and add additional behavior to the Component.
+- Client Code (PizzaShop): Implements the whole unit in single place as an entry point to client.
+
+Useful scenarios:
+
+- Text Processing Applications: Use decorators to wrap text objects with different formatting styles. Each decorator adds a specific formatting behavior.
+- Logging in Software Applications : Use decorators to dynamically add different logging behaviors to a base logger.
+- E-commerce Platforms – Product Pricing : Use decorators to wrap product pricing objects and apply different price modifications.
+- Data Encryption and Compression : Use decorators to wrap data objects and apply encryption, compression, or other data processing steps.
+- Web Application Middleware : Use decorators to wrap HTTP request and response objects to add middleware functionalities.
+- Payment Processing Systems : Use the Decorator pattern to wrap the payment processing object with additional processing behaviors like fraud detection or currency conversion.
+- Email Systems : Use decorators to wrap the email object with additional features like encryption or compression, allowing these features to be applied dynamically.
+
+When to use this Pattern:
+
+- Dynamic Behavior Addition: You need to dynamically add or modify the behavior of an object at runtime. Adding various toppings to a pizza in a pizza shop application, where toppings can be added or removed based on user preferences.
+- Avoiding Subclass Explosion: You have a large number of combinations of functionalities that would otherwise lead to a combinatorial explosion of subclasses.
+- Enhancing or Extending Functionality: You want to extend the functionality of a class without modifying its existing code. Adding logging, caching, or encryption features to a method call without altering the core logic of the method.
+- Maintaining Open/Closed Principle: You want your classes to be open for extension but closed for modification.
+- Reusable and Composable Functionality: You need to create reusable and composable functionality that can be applied to different objects.
+
+#### Composite (https://refactoring.guru/design-patterns/composite): Composite is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects. The Composite Design Pattern was created to address specific challenges related to the representation and manipulation of hierarchical structures in a uniform way.
+
+For example, imagine that you have two types of objects: Products and Boxes. A Box can contain several Products as well as a number of smaller Boxes. These little Boxes can also hold some Products or even smaller Boxes, and so on.
+Say you decide to create an ordering system that uses these classes. Orders could contain simple products without any wrapping, as well as boxes stuffed with products...and other boxes. How would you determine the total price of such an order?
+The Composite pattern suggests that you work with Products and Boxes through a common interface which declares a method for calculating the total price.
+
+How would this method work? For a product, it’d simply return the product’s price. For a box, it’d go over each item the box contains, ask its price and then return a total for this box.
+
+Let’s understand how Prototype Design Pattern will created:
+
+https://www.geeksforgeeks.org/composite-design-pattern-in-java/
+
+1. Task (Component): The component declares the interface for objects in the composition and for accessing and managing its child components. This is like a blueprint that tells us what both individual items (leaves) and groups of items (composites) should be able to do.
+   Represents the common interface for both simple tasks and task lists.
+   Defines methods such as getTitle(), setTitle(), and display().
+2. SimpleTask (Leaf): Leaf defines behavior for primitive objects in the composition. This is the basic building block of the composition, representing individual objects that don’t have any child components.
+   Represents an individual task with a title.
+   Implements the Task interface.
+
+3. TaskList (Composite): Composite stores child components and implements child-related operations in the component interface. This is a class that has child components, which can be either leaf elements or other composites.
+   Represents a collection of tasks, which can include both simple tasks and other task lists.
+   Implements the Task interface but also has a list of tasks (List<Task>).
+   Defines methods to add, remove, and display tasks.
+
+4. TaskManagementApp (Client): The client manipulates the objects in the composition through the component interface. The client uses the component class interface to interact with objects in the composition structure.
+   Represents the application that uses the Composite Design Pattern to manage tasks.
+   It creates a mix of simple tasks and task lists, showcasing how the Composite pattern allows treating both individual tasks and task collections uniformly.
+
+Useful scenarios:
+
+- File System Management: Both File and Directory implement a common interface (e.g., FileSystemComponent). A Directory can contain both File and other Directory objects, allowing you to perform operations like "delete," "copy," or "move" uniformly across both files and directories.
+- Graphic Drawing Applications : Simple shapes like Line, Rectangle, and Circle implement a common interface or abstract class (e.g., Graphic). A CompositeGraphic can contain multiple Graphic objects, allowing you to treat simple shapes and groups of shapes uniformly.
+- Company Organizational Structures : Both Employee and Manager implement a common interface (e.g., CompanyComponent). A Manager can contain other CompanyComponent objects, allowing you to treat individual employees and departments uniformly.
+- Menu Systems: Both MenuItem and SubMenu implement a common interface (e.g., MenuComponent). A SubMenu can contain other MenuComponent objects, allowing you to handle operations like "display" or "select" uniformly.
+- Product Configurators : Both Component and CompositeComponent implement a common interface (e.g., ProductComponent). A CompositeComponent can contain other ProductComponent objects, allowing you to handle the configuration process uniformly.
+- E-commerce Cart Systems : Both CartItem and ItemBundle implement a common interface (e.g., CartComponent). An ItemBundle can contain multiple CartComponent objects, allowing you to calculate the total price or apply discounts uniformly.
+
+When to use this Pattern:
+
+- Uniform Interface:
+  The Composite Pattern provides a uniform interface for both individual objects and compositions.
+  This uniformity simplifies client code, making it more intuitive and reducing the need for conditional statements to differentiate between different types of objects.
+- Hierarchical Structures:
+  The primary focus of the Composite Pattern is to deal with hierarchical structures where objects can be composed of other objects.
+- Flexibility and Scalability:
+  The Composite Pattern allows for dynamic composition of objects, enabling the creation of complex structures.
+- Common Operations:
+  By defining common operations at the component level, the Composite Pattern reduces code duplication and promotes a consistent approach to handling both leaf and composite objects.
+- Client Simplification:
+  The Composite Pattern simplifies client code by providing a unified way to interact with individual and composite objects.
+
+### Behavioral Patterns
+
+#### Strategy Pattern
+
+The Strategy Design Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable, allowing clients to switch algorithms dynamically without altering the code structure.
+
+Imagine you’re planning a trip to a new city, and you have several options for getting there: by car, by train, or by plane. Each mode of transportation offers its own set of advantages and disadvantages, depending on factors such as cost, travel time, and convenience.
+
+Context: You, as the traveler, represent the context in this analogy. You have a specific goal (reaching the new city) and need to choose the best transportation strategy to achieve it.
+Strategies: The different modes of transportation (car, train, plane) represent the strategies in this analogy. Each strategy (mode of transportation) offers a different approach to reaching your destination.
