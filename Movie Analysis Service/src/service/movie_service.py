@@ -1,6 +1,9 @@
 """
 Service layer contains the business logic and switches on the aggregation types (strategy pattern).
 Multiple aggregration strategy methods can be implemented by extending the service class.
+
+NOTE: More better to create each aggregated features as seperate class and extend it when scaling, add
+multiple aggregrated strategies (Strategy pattern).
 """
 
 from typing import List, Dict, Optional
