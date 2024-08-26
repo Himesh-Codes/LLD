@@ -176,6 +176,10 @@ It’s always a good idea to check with the interviewer on what all is expected 
 
 ## Common Design Patterns
 
+![design cheat sheet 1](./Design%20Patterns/images/Design%20cheat%20sheet%201.png)
+
+![design cheat sheet 2](./Design%20Patterns/images/design%20cheat%20sheet%202.png)
+
 ### Creational Patterns
 
 #### Singleton (https://blog.algomaster.io/p/singleton-design-pattern): Class to have only one object created,achieved by making the constructor private to avoid other classes creates it's object and providing a static method for external objects to access it.
