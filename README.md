@@ -455,11 +455,191 @@ When to use this Pattern:
 
 ### Behavioral Patterns
 
-#### Strategy Pattern
-
-The Strategy Design Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable, allowing clients to switch algorithms dynamically without altering the code structure.
+#### Strategy Pattern (https://refactoring.guru/design-patterns/strategy): The Strategy Design Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable, allowing clients to switch algorithms dynamically without altering the code structure.
 
 Imagine you’re planning a trip to a new city, and you have several options for getting there: by car, by train, or by plane. Each mode of transportation offers its own set of advantages and disadvantages, depending on factors such as cost, travel time, and convenience.
 
 Context: You, as the traveler, represent the context in this analogy. You have a specific goal (reaching the new city) and need to choose the best transportation strategy to achieve it.
 Strategies: The different modes of transportation (car, train, plane) represent the strategies in this analogy. Each strategy (mode of transportation) offers a different approach to reaching your destination.
+
+Let’s understand how Strategy Design Pattern will created:
+
+https://www.geeksforgeeks.org/strategy-pattern-set-1/
+
+1. Context(SortingContext): The Context is a class or object that holds a reference to a strategy object and delegates the task to it. It acts as the interface between the client and the strategy, providing a unified way to execute the task without knowing the details of how it’s done.
+
+2. Strategy Interface(SortingStrategy): The Strategy Interface is an interface or abstract class that defines a set of methods that all concrete strategies must implement.
+
+3. Concrete Strategies: Concrete Strategies are the various implementations of the Strategy Interface. Each concrete strategy provides a specific algorithm or behavior for performing the task defined by the Strategy Interface.
+
+4. Client Component: The Client is responsible for selecting and configuring the appropriate strategy and providing it to the Context.
+
+##### Communication between the Components
+
+- Client to Context
+- Context to Strategy
+- Strategy to Context: Return data to Context after executing specific strategy.
+- Strategy Interface as Contract: The Strategy Interface serves as a contract that defines a set of methods that all concrete strategies must implement.
+- Decoupled Communication: Context does not need to know the specific details of how each strategy implements the task. Strategies can be swapped or replaced without impacting the client
+
+Useful scenarios:
+
+- Payment Processing in E-Commerce Systems: Different payment methods can be encapsulated as separate strategy classes implementing a common PaymentStrategy interface.
+- Sorting Algorithms: Each sorting algorithm is implemented as a strategy class that implements a common SortStrategy interface. The application can choose the appropriate sorting strategy at runtime.
+- Authentication Mechanisms: Each authentication method is implemented as a strategy class that implements a common AuthenticationStrategy interface. The application can select the appropriate strategy at runtime based on the context.
+- Tax Calculation in Finance Systems: Each tax calculation method is implemented as a strategy class that implements a common TaxStrategy interface. A global e-commerce platform calculates taxes differently for users in the EU, the US, and Asia.
+- File Parsing and Processing: Each file parsing method is implemented as a strategy class that implements a common FileParserStrategy interface. A data import tool might need to handle CSV, JSON, and XML files differently.
+- Document Generation Systems: Each document generation method is implemented as a strategy class that implements a common DocumentStrategy interface. A report generation tool might allow users to export reports in PDF, Word, or HTML formats.
+- Notification Sending in Communication Systems: Each notification sending method is implemented as a strategy class that implements a common NotificationStrategy interface. An alert system might send critical alerts via SMS, regular updates via email, and app notifications for non-urgent messages.
+- Data Caching Mechanisms: Each caching method is implemented as a strategy class that implements a common CachingStrategy interface.
+- Input Validation in Form Handling: Each validation method is implemented as a strategy class that implements a common ValidationStrategy interface. When a user submits a form, the application might validate the input client-side for immediate feedback and server-side for security
+
+When to use this Pattern:
+
+- Multiple Algorithms: When you have multiple algorithms that can be used interchangeably based on different contexts.
+- Encapsulating Algorithms: When you want to encapsulate the implementation details of algorithms separately from the context that uses them.
+- Runtime Selection: When you need to dynamically select and switch between different algorithms at runtime based on user preferences.
+- Reducing Conditional Statements: When you have a class with multiple conditional statements that choose between different behaviors, using the Strategy pattern helps in eliminating the need for conditional statements.
+- Testing and Extensibility: When you want to facilitate easier unit testing by enabling the substitution of algorithms with mock objects or stubs.
+
+#### Iterator Pattern (https://refactoring.guru/design-patterns/iterator): Collections are one of the most used data types in programming. Nonetheless, a collection is just a container for a group of objects. Most collections store their elements in simple lists. However, some of them are based on stacks, trees, graphs and other complex data structures. The main idea of the Iterator pattern is to extract the traversal behavior of a collection into a separate object called an iterator.
+
+Let’s understand how Iterator Design Pattern will created:
+
+1. Iterator Interface: Defines the methods for accessing and traversing the collection. It typically includes methods like hasNext(), next(), and optionally remove().
+2. Aggregate Interface: Defines the method for creating an iterator. It typically includes a method like createIterator() that returns an Iterator object for the collection.
+3. Concrete Iterator: Implements the Iterator interface and provides the actual iteration logic.
+4. Concrete Aggregate: Implements the Aggregate interface and provides the method to create an iterator for the collection.
+
+Useful scenarios:
+
+- Social Media Feed: Each feed source (friends, pages, groups) can be represented as a collection, with an iterator to traverse the posts in a specific orderEach feed source (friends, pages, groups) can be represented as a collection, with an iterator to traverse the posts in a specific order.
+- Product Catalog in E-Commerce Platforms: The catalog and its categories can be treated as collections, and an iterator can be used to traverse through products or subcategories in a consistent manner.
+- File System Navigation: The files and directories can be represented as a collection, with an iterator used to traverse the directory tree.
+- Tree Traversal in Hierarchical Data: A tree structure can be traversed using an iterator, with specific traversal strategies like pre-order, in-order, or post-order, DFS, BFS etc..
+- Document Parsing: The document elements can be treated as a collection, with an iterator used to traverse through these elements in sequence.
+- Web Crawlers: The web pages can be treated as a collection of URLs, with an iterator used to traverse through the links on each page.
+- Inventory Management Systems: The inventory items, categories, and warehouses can be treated as collections, with an iterator used to traverse and manage the items.
+- Workflow Engines: The tasks or steps in the workflow are treated as collections, with an iterator used to traverse and execute each step in order.
+
+When to use this Pattern:
+
+- Need for sequential access: Use the Iterator pattern when you need to access elements of a collection sequentially without exposing its underlying representation
+- Decoupling iteration logic
+- Support for multiple iterators: Use the Iterator pattern when you need to support multiple iterators over the same collection.
+- Simplifying client code: Use the Iterator pattern to simplify client code that iterates over a collection.
+
+#### Observer Pattern (Pub-Sub) (https://refactoring.guru/design-patterns/observer): Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing. The object that has some interesting state is often called subject, but since it’s also going to notify other objects about the changes to its state, we’ll call it publisher. All other objects that want to track changes to the publisher’s state are called subscribers.
+
+Let’s understand how Observer Design Pattern will created:
+https://www.geeksforgeeks.org/observer-pattern-set-1-introduction/
+
+1. Subject : The subject maintains a list of observers (subscribers or listeners). It Provides methods to register and unregister observers dynamically. The “Subject" interface outlines the operations a subject (like “WeatherStation") should support. "addObserver" and “removeObserver" are for managing the list of observers. "notifyObservers" is for informing observers about changes.
+
+2. Observer : The “Observer" interface defines a contract for objects that want to be notified about changes in the subject (“WeatherStation" in this case). It includes a method “update" that concrete observers must implement to receive and handle updates.
+
+3. ConcreteSubject(WeatherStation): "WeatherStation" is the concrete subject implementing the “Subject" interface. It maintains a list of observers (“observers") and provides methods to manage this list. "notifyObservers" iterates through the observers and calls their “update" method, passing the current weather.
+
+4. ConcreteObserver(PhoneDisplay): "PhoneDisplay" is a concrete observer implementing the “Observer" interface. It has a private field weather to store the latest weather. The “update" method sets the new weather and calls the “display" method.
+
+5. ConcreteObserver(TVDisplay)
+
+6. Usage: In “WeatherApp", a “WeatherStation" is created. Two observers (“PhoneDisplay" and “TVDisplay") are registered with the weather station using “addObserver".
+
+Useful scenarios:
+
+When to use this Pattern:
+
+#### Command Pattern (https://refactoring.guru/design-patterns/command): Command is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request’s execution, and support undoable operations.
+
+The Command Pattern encapsulates a request as an object, allowing for the separation of sender and receiver.
+Commands can be parameterized, meaning you can create different commands with different parameters without changing the invoker(responsible for initiating command execution).
+It decouples the sender (client or invoker) from the receiver (object performing the operation), providing flexibility and extensibility.
+The pattern supports undoable(action or a series of actions that can be reversed or undone in a system) operations by storing the state or reverse commands.
+
+Let’s understand how Command Design Pattern will created:
+https://www.geeksforgeeks.org/command-pattern/
+
+1. Command Interface: The Command interface declares a method, often named execute(). This method is meant to encapsulate a specific operation.
+2. Concrete Command Classes: Concrete command classes implement the Command interface. Each class encapsulates a specific operation related to devices. Each concrete command class provides a specific implementation of the execute() method, defining how a particular device operation (turning on, turning off, adjusting volume, changing channel) is executed.
+3. Receiver Classes (Devices): The Device interface declares methods related to device functionality, such as turnOn() and turnOff(). This interface sets a contract for device classes.
+4. Invoker Class (Remote Control): The invoker class holds a reference to a Command object and triggers its execution through the execute() method. The invoker doesn’t know the specific details of the command or the devices. It simply calls the execute() method on the current command.
+
+Useful scenarios:
+
+When to use this Pattern:
+
+#### State Pattern (https://refactoring.guru/design-patterns/state): State is a behavioral design pattern that lets an object alter its behavior when its internal state changes. It appears as if the object changed its class. The State pattern suggests that you create new classes for all possible states of an object and extract all state-specific behaviors into these classes. Instead of implementing all behaviors on its own, the original object, called context, stores a reference to one of the state objects that represents its current state
+
+Let’s understand how State Design Pattern will created:
+
+https://www.geeksforgeeks.org/state-design-pattern/
+
+Eg: User interactions with the vending machine trigger state transitions. For example, when a user inserts money, the vending machine transitions from the “ReadyState” to the “PaymentPendingState.” Similarly, when a product is selected, the vending machine transitions to the “ProductSelectedState.” If a product is out of stock, the vending machine transitions to the “OutOfStockState.”
+
+1. Context(VendingMachineContext): The context is responsible for maintaining the current state of the vending machine and delegating state-specific behavior to the appropriate state object. The Context provides an interface for clients to interact with and typically delegates state-specific behavior to the current state object.
+
+2. State Interface (VendingMachineState): This interface defines the contract that all concrete state classes must implement. It typically contains a method or methods representing the behavior associated with each state of the vending machine.
+
+3. Concrete States (Specific Vending Machine States): Concrete state classes represent specific states of the vending machine, such as “ReadyState,” “ProductSelectedState,” and “OutOfStockState.” Each concrete state class implements the behavior associated with its respective state, like allowing product selection, processing payment, or displaying an out-of-stock message.
+
+4. Client: Interacts with the Context that contains the state references.
+
+Useful scenarios:
+
+- ATM Machine: The ATM machine can have states like NoCard, HasCard, Authenticated, and DispensingCash. Each state has its behavior, and the machine transitions between states as the user interacts with it.
+
+- Traffic Light System: The traffic light can have states like GreenLight, YellowLight, and RedLight, with each state defining the behavior of the light. The light transitions from one state to another based on a timer or external input.
+
+- Document Workflow Management: The document can have states like Draft, InReview, Approved, and Rejected. Each state defines the actions that can be taken (e.g., editing is only allowed in the Draft state).
+
+- Order Processing System: The order can have states like NewOrder, PaidOrder, ShippedOrder, DeliveredOrder, and CanceledOrder. Each state defines the actions that can be taken (e.g., an order can only be shipped if it has been paid).
+
+- Customer Support Ticket System: The ticket can have states like NewTicket, InProgressTicket, OnHoldTicket, ResolvedTicket, and ClosedTicket. Each state defines the actions that can be taken (e.g., a ticket can only be resolved if it is in progress).
+
+- Subscription Service: The subscription can have states like ActiveState, SuspendedState, and CanceledState. Each state defines what actions are allowed (e.g., a user can only access premium features if the subscription is active).
+
+- Project Management Software: The task can have states like ToDoState, InProgressState, BlockedState, and CompletedState. Each state defines the actions that can be taken (e.g., a task can only be marked as completed if it is in progress).
+
+- Text Editor: The editor can have states like EditMode, ReadOnlyMode, and CommandMode. Each state defines how the editor handles user input and text manipulation.
+
+When to use this Pattern:
+
+#### Template Method Pattern (https://refactoring.guru/design-patterns/template-method): Template Method is a behavioral design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure. The Template Method pattern suggests that you break down an algorithm into a series of steps, turn these steps into methods, and put a series of calls to these methods inside a single template method.
+
+Let’s understand how Template Design Pattern will created:
+https://www.geeksforgeeks.org/template-method-design-pattern/
+
+1. Abstract Class (BeverageMaker): This is the superclass that defines the template method. It provides a skeleton for the algorithm, where certain steps are defined but others are left abstract or defined as hooks that subclasses can override.
+
+2. Template Method (makeBeverage()): This is the method within the abstract class that defines the overall algorithm structure by calling various steps in a specific order, eg; boilWater(), brew(), pourInCup(), addCondiments().
+
+3. Abstract (or Hook) Methods: These are methods declared within the abstract class but not implemented. They serve as placeholders for steps in the algorithm that should be implemented by subclasses. eg; brew(), addCondiments().
+
+4. Concrete Subclasses (TeaMaker/CoffeeMaker): These are the subclasses that extend the abstract class and provide concrete implementations for the abstract methods defined in the superclass. Each subclass can override certain steps of the algorithm to customize the behavior
+
+5. Client: Interact with Concrete subclasses, person who wants to make a hot beverage, so you decide whether you want tea or coffee.
+
+Useful scenarios:
+
+- Online Payment Processing: A base class PaymentProcessor defines the common steps (e.g., validate payment, process payment, and send confirmation), with subclasses implementing specific gateway-related logic.
+
+- Document Generation: A base class DocumentGenerator defines the common steps (e.g., prepare header, generate content, and prepare footer), with subclasses implementing the specifics for each document type.
+
+- Game Development: A base class GameLevel defines the common steps, with subclasses implementing specific logic for different levels.
+
+- Data Processing Pipelines: A base class DataProcessor defines the common steps, with subclasses implementing the specifics for each data type.
+
+- User Authentication: A base class Authenticator defines the common authentication steps (e.g., gather credentials, validate credentials, and grant access), with subclasses implementing the specific logic for each method.
+
+- File Parsing: A base class FileParser defines the common steps (e.g., open file, read content, and parse content), with subclasses implementing specific parsing logic for each file type.
+
+- Software Build Processes: A base class BuildProcess defines the common build steps, with subclasses implementing specific logic for different types of projects. eg: JavaBuildProcess, PythonBuildProcess, and NodeJSBuildProcess classes.
+
+- Restaurant Order Processing: A base class OrderProcessor defines the common steps (e.g., take order, process payment, and deliver order), with subclasses implementing the specific logic for each type of order.
+
+- Notification Sending System: A base class NotificationSender defines the common steps (e.g., create message, send message, and log result), with subclasses implementing the specific sending logic for each channel.
+
+- Report Generation: A base class ReportGenerator defines the common steps (e.g., gather data, format report, and generate output), with subclasses implementing the specific logic for each report type.
+
+When to use this Pattern:

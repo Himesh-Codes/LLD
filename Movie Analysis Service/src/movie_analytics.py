@@ -4,6 +4,8 @@ Serves as a facade, simplifying client interactions with the system.
 It delegate client requests to appropriate subsystem objects.
 
 It handles the dependency injection to avoid multiple instances for repository, service, client.
+
+NOTE: We could write the Interfaces / Abstract class for each solid classes.
 """
 from typing import Optional, List, Dict
 from client.movie_repository import MovieRepository
