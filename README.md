@@ -316,6 +316,7 @@ https://www.geeksforgeeks.org/prototype-design-pattern/
 #### Adapter (https://refactoring.guru/design-patterns/adapter): Adapter is a structural design pattern that allows objects with incompatible interfaces to collaborate.
 
 Let’s understand how this Pattern will created:
+https://www.geeksforgeeks.org/adapter-pattern/
 
 - Target Interface (Printer) : The interface that the client code expects.
 - Adaptee (LegacyPrinter): The existing class with an incompatible interface.
@@ -509,6 +510,7 @@ When to use this Pattern:
 #### Iterator Pattern (https://refactoring.guru/design-patterns/iterator): Collections are one of the most used data types in programming. Nonetheless, a collection is just a container for a group of objects. Most collections store their elements in simple lists. However, some of them are based on stacks, trees, graphs and other complex data structures. The main idea of the Iterator pattern is to extract the traversal behavior of a collection into a separate object called an iterator.
 
 Let’s understand how Iterator Design Pattern will created:
+https://www.geeksforgeeks.org/iterator-pattern/
 
 1. Iterator Interface: Defines the methods for accessing and traversing the collection. It typically includes methods like hasNext(), next(), and optionally remove().
 2. Aggregate Interface: Defines the method for creating an iterator. It typically includes a method like createIterator() that returns an Iterator object for the collection.
