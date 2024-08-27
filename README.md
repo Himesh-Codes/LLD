@@ -458,6 +458,18 @@ When to use this Pattern:
 - Client Simplification:
   The Composite Pattern simplifies client code by providing a unified way to interact with individual and composite objects.
 
+#### Repository Pattern (https://www.geeksforgeeks.org/repository-design-pattern/): The Repository Design Pattern is a software design pattern that acts as an intermediary layer between an application’s business logic and data storage.
+
+This pattern promotes a clear separation of concerns, making software more maintainable, testable, and adaptable to changes in data sources, without entangling the core application logic with data access intricacies.
+In essence, the Repository Design Pattern is a blueprint for organizing and simplifying data access, enhancing the efficiency and flexibility of software systems.
+
+Let’s understand how Prototype Design Pattern will created:
+
+Step 1: Define the Product Entity
+Step 2: Create the Repository Interface
+Step 3: Implement a Concrete Repository
+Step 4: Usage in Main Function
+
 ### Behavioral Patterns
 
 #### Strategy Pattern (https://refactoring.guru/design-patterns/strategy): The Strategy Design Pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable, allowing clients to switch algorithms dynamically without altering the code structure.
