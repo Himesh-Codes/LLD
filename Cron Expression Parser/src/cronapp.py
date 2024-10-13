@@ -9,19 +9,21 @@ from cronparser import CronParser
 # CronApp Class to handle multiple cron expressions with multithreading
 @singleton
 class CronApp:
-    def __init__(self, cron_expressions: dict):
-        self.cron_expressions = cron_expressions
+    def __init__(self):
         self.lock = threading.Lock()  # Lock for synchronization
 
-    def run(self):
-        threads = []
-        for expr, format in self.cron_expressions.items():
-            thread = threading.Thread(target=self.parse_and_print, args=(expr,format))
-            thread.start()
-            threads.append(thread)
+    def run(self, cron_expressions: dict = None, cron_expression: str = None, cronformat = None):
+        if cron_expressions:
+            threads = []
+            for expr, format in cron_expressions.items():
+                thread = threading.Thread(target=self.parse_and_print, args=(expr,format))
+                thread.start()
+                threads.append(thread)
 
-        for thread in threads:
-            thread.join()
+            for thread in threads:
+                thread.join()
+        elif cron_expression and cronformat:
+            self.parse_and_print(cron_expression, cronformat)
 
     def parse_and_print(self, expr: str, strategy):
         cron_parser = CronParser(expr, strategy)
@@ -44,5 +46,6 @@ if __name__ == "__main__":
         "0 0 * * MON-FRI /usr/bin/backup": Strategy.DAYWEEKRANGE,
         "5 0 * * 1 /usr/bin/cleanup": Strategy.STANDARD
     }
-    app = CronApp(cron_expressions)
-    app.run()
+    app = CronApp()
+    app.run(cron_expressions)
+    app.run(None, "*/5 * 1,15 * 2-3 /usr/bin/singlecron", Strategy.STANDARD)
