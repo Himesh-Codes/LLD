@@ -12,7 +12,7 @@ class CronApp:
     def __init__(self):
         self.lock = threading.Lock()  # Lock for synchronization
 
-    def run(self, cron_expressions: dict = None, cron_expression: str = None, cronformat = None):
+    def run(self, cron_expression: str = None, cronformat = None, cron_expressions: dict = None):
         if cron_expressions:
             threads = []
             for expr, format in cron_expressions.items():
@@ -47,5 +47,5 @@ if __name__ == "__main__":
         "5 0 * * 1 /usr/bin/cleanup": Strategy.STANDARD
     }
     app = CronApp()
-    app.run(cron_expressions)
-    app.run(None, "*/5 * 1,15 * 2-3 /usr/bin/singlecron", Strategy.STANDARD)
+    app.run(None, None, cron_expressions)
+    app.run("*/5 * 1,15 * 2-3 /usr/bin/singlecron", Strategy.STANDARD)
