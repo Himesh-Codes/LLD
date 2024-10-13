@@ -27,7 +27,7 @@ class CronField:
         computed_set = set()
         try:
             for x in self.field_expr.split(","):
-                if self.max_value >= x >= self.min_value:
+                if self.max_value >= int(x) >= self.min_value:
                     computed_set.add(int(x))
                 else:
                     raise FieldExpansionError(f"Value {x} out of bounds for field value min: {self.min_value} and max: {self.max_value}")
