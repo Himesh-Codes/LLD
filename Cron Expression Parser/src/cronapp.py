@@ -2,9 +2,10 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import threading
-from config.strategy import Strategy
+from config.parsestrategy import ParseStrategy
 from custom.singleton import singleton
 from cronparser import CronParser
+from custom.cronexceptions import CronParsingError
 
 # CronApp Class to handle multiple cron expressions with multithreading
 @singleton
@@ -31,21 +32,25 @@ class CronApp:
 
         # Ensure the output is synchronized across threads
         with self.lock:
-            for field, values in parsed.items():
-                if isinstance(values, list):
-                    # filling with space '<' alignment specifier
-                    print(f"{field:<14} {' '.join(map(str, values))}")
-                else:
-                    print(f"{field:<14} {values}")
+            try:
+                for field, values in parsed.items():
+                    if isinstance(values, list):
+                        # filling with space '<' alignment specifier
+                        print(f"{field:<14} {' '.join(map(str, values))}")
+                    else:
+                        print(f"{field:<14} {values}")
+            except Exception as e:
+                raise CronParsingError(e)
+
 
 
 # Sample usage
 if __name__ == "__main__":
     cron_expressions = {
-        "*/15 0 1,15 * 1-5 /usr/bin/find": Strategy.STANDARD,
-        "0 0 * * MON-FRI /usr/bin/backup": Strategy.DAYWEEKRANGE,
-        "5 0 * * 1 /usr/bin/cleanup": Strategy.STANDARD
+        "*/15 0 1,15 * 1-5 /usr/bin/find": ParseStrategy.STANDARD,
+        "0 0 * * MON-FRI /usr/bin/backup": ParseStrategy.DAYWEEKRANGE,
+        "5 0 * * 1 /usr/bin/cleanup": ParseStrategy.STANDARD
     }
     app = CronApp()
     app.run(None, None, cron_expressions)
-    app.run("*/5 * 1,15 * 2-3 /usr/bin/singlecron", Strategy.STANDARD)
+    app.run("*/5 * 1,15 * 2-3 /usr/bin/singlecron", ParseStrategy.STANDARD)

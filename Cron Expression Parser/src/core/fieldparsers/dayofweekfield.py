@@ -1,12 +1,14 @@
 # Concrete Classes for Field Parser
 from abstract.cronfieldparser import CronFieldParser
 from core.cronfield import CronField
+from config.constants import DayWeekFormats
+from config.constants import DAY_MAP
+from custom.cronexceptions import FieldExpansionError
 
 class DayOfWeekFieldParser(CronFieldParser):
-    day_map = {'MON': 1, 'TUE': 2, 'WED': 3, 'THU': 4, 'FRI': 5, 'SAT': 6, 'SUN': 0}
 
-    def parse(self, field_expr: str):
-        if any(day in field_expr.upper() for day in self.day_map):
+    def parse(self, field_expr: str, format: DayWeekFormats = DayWeekFormats.INTEGERDAYS):
+        if format == DayWeekFormats.MONTOFRIDAY:
             return self._expand_day_of_week_range(field_expr)
         else:
             return CronField(field_expr, 0, 6).expand()
@@ -15,13 +17,16 @@ class DayOfWeekFieldParser(CronFieldParser):
         """
         Expands day-of-week field, handling ranges like MON-FRI or individual days like MON.
         """
-        if "-" in day_field:
-            start_day, end_day = day_field.split("-")
-            start = self.day_map[start_day.upper()]
-            end = self.day_map[end_day.upper()]
-            return list(range(start, end + 1))
-        elif "," in day_field:
-            days = day_field.split(",")
-            return sorted(set(self.day_map[day.upper()] for day in days))
-        else:
-            return [self.day_map[day_field.upper()]]
+        try:
+            if "-" in day_field:
+                start_day, end_day = day_field.split("-")
+                start = self.DAY_MAP[start_day.upper()]
+                end = self.DAY_MAP[end_day.upper()]
+                return list(range(start, end + 1))
+            elif "," in day_field:
+                days = day_field.split(",")
+                return sorted(set(self.DAY_MAP[day.upper()] for day in days))
+            else:
+                return [self.DAY_MAP[day_field.upper()]]
+        except Exception as e:
+            raise FieldExpansionError(e)

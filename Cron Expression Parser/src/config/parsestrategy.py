@@ -1,5 +1,5 @@
 from enum import Enum
 
-class Strategy(Enum):
-    STANDARD = "srandard"
+class ParseStrategy(Enum):
+    STANDARD = "standard"
     DAYWEEKRANGE = "dayweekrange"

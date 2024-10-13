@@ -1,4 +1,4 @@
-from config.strategy import Strategy
+from config.parsestrategy import ParseStrategy
 from core.parsestrategies.dayweekrangestrategy import DayOfWeekRangeCronStrategy
 from core.parsestrategies.standardstrategy import StandardCronStrategy
 
@@ -9,7 +9,7 @@ class CronParser:
         self.strategy = self._select_strategy(strategy)
 
     def _select_strategy(self, strategy):
-        if strategy == Strategy.DAYWEEKRANGE:
+        if strategy == ParseStrategy.DAYWEEKRANGE:
             return DayOfWeekRangeCronStrategy()
         else:
             return StandardCronStrategy()  # Default standard cron strategy
