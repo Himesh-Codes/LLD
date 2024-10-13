@@ -8,6 +8,7 @@
 - src/config: Config enums and app constants.
 - src/custom: Custom exceptions, decorators.
 - src/core: Core entities cronfield parsing logic, parsing factory, different field parsers, parsing strategies etc..
+- /tst : Test cases
 
 ## Sample Testing
 
@@ -28,3 +29,6 @@ if __name__ == "__main__":
 ```
 
 ## Testing
+
+- Goto /tst:
+  - Run /tst/testcronparse.py (python -m unittest testcronparse.py): Ensure that all testcases are passed.
