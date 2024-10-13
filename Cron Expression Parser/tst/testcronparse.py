@@ -6,8 +6,6 @@ from src.cronparser import CronParser
 from src.custom.cronexceptions import CronParsingError
 from src.config.parsestrategy import ParseStrategy
 
-# Assuming CronApp, CronParser, and the strategy classes are imported
-
 class TestCronFieldParser(unittest.TestCase):
     def setUp(self):
         # Prepare valid and invalid cron expressions for testing
@@ -28,7 +26,7 @@ class TestCronFieldParser(unittest.TestCase):
         self.assertEqual(result['hour'], [0])
         self.assertEqual(result['day of month'], [1, 15])
         self.assertEqual(result['month'], list(range(1, 13)))  # Full year
-        self.assertEqual(result['day of week'], list(range(1, 6)))  # Monday to Friday
+        self.assertEqual(result['day of week'], list(range(1, 6))) 
         self.assertEqual(result['command'], self.command)
 
     def test_invalid_minute_expression(self):
@@ -78,7 +76,7 @@ class TestCronFieldParser(unittest.TestCase):
         self.assertEqual(result['command'], "/usr/bin/backup")
 
     def test_day_of_week_invalid_strategy(self):
-        # Test DayOfWeekRangeCronStrategy with invalid days (e.g., "SUN-MON")
+        # Test DayOfWeekRangeCronStrategy with invalid days (e.g., "SAT-MON")
         invalid_expression = "0 0 * * SAT-MON /usr/bin/backup"
         strategy = ParseStrategy.DAYWEEKRANGE
         parser = CronParser(invalid_expression, strategy)
