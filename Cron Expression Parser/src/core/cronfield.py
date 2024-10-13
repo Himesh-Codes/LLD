@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from custom.cronexceptions import FieldExpansionError
 
 # CronField Class (the actual expansion logic remains the same for all)

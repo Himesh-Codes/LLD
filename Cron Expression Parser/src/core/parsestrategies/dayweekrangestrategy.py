@@ -22,10 +22,10 @@ class DayOfWeekRangeCronStrategy(CronParseStrategy):
             raise CronParsingError(e)
 
         return {
-            FieldTypes.MINUTE: minute,
-            FieldTypes.HOUR: hour,
-            FieldTypes.DAYOFMONTH: day_of_month,
-            FieldTypes.MONTH: month,
-            FieldTypes.DAYOFWEEK: day_of_week,
-            FieldTypes.COMMAND: command
+            FieldTypes.MINUTE.value: minute,
+            FieldTypes.HOUR.value: hour,
+            FieldTypes.DAYOFMONTH.value: day_of_month,
+            FieldTypes.MONTH.value: month,
+            FieldTypes.DAYOFWEEK.value: day_of_week,
+            FieldTypes.COMMAND.value: command
         }

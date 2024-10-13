@@ -20,13 +20,13 @@ class DayOfWeekFieldParser(CronFieldParser):
         try:
             if "-" in day_field:
                 start_day, end_day = day_field.split("-")
-                start = self.DAY_MAP[start_day.upper()]
-                end = self.DAY_MAP[end_day.upper()]
+                start = DAY_MAP[start_day.upper()]
+                end = DAY_MAP[end_day.upper()]
                 return list(range(start, end + 1))
             elif "," in day_field:
                 days = day_field.split(",")
-                return sorted(set(self.DAY_MAP[day.upper()] for day in days))
+                return sorted(set(DAY_MAP[day.upper()] for day in days))
             else:
-                return [self.DAY_MAP[day_field.upper()]]
+                return [DAY_MAP[day_field.upper()]]
         except Exception as e:
             raise FieldExpansionError(e)
