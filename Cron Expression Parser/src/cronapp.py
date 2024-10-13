@@ -2,10 +2,10 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import threading
-from config.parsestrategy import ParseStrategy
-from custom.singleton import singleton
-from cronparser import CronParser
-from custom.cronexceptions import CronParsingError
+from src.custom.singleton import singleton
+from src.cronparser import CronParser
+from src.custom.cronexceptions import CronParsingError
+from src.config.parsestrategy import ParseStrategy
 
 # CronApp Class to handle multiple cron expressions with multithreading
 @singleton
@@ -41,3 +41,4 @@ class CronApp:
                         print(f"{field:<14} {values}")
             except Exception as e:
                 raise CronParsingError(e)
+

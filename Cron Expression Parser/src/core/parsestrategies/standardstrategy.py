@@ -1,8 +1,10 @@
-from abstract.cronparsestrategy import CronParseStrategy
-from core.cronfieldparserfactory import CronFieldParserFactory
-from config.constants import FieldTypes
-from config.constants import DayWeekFormats
-from custom.cronexceptions import CronParsingError
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.abstract.cronparsestrategy import CronParseStrategy
+from src.core.cronfieldparserfactory import CronFieldParserFactory
+from src.config.constants import FieldTypes
+from src.custom.cronexceptions import CronParsingError
 
 # Standard Cron strategy
 class StandardCronStrategy(CronParseStrategy):

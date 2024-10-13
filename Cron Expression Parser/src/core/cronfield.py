@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from custom.cronexceptions import FieldExpansionError
+from src.custom.cronexceptions import FieldExpansionError
 
 # CronField Class (the actual expansion logic remains the same for all)
 class CronField:
@@ -24,6 +24,8 @@ class CronField:
         elif "/" in self.field_expr:
             return self._expand_step()
         else:
+            if not(self.max_value >= int(self.field_expr) >= self.min_value):
+                raise FieldExpansionError(f"Value {int(self.field_expr)} out of bounds for field value min: {self.min_value} and max: {self.max_value}") 
             return [int(self.field_expr)]
 
     def _expand_list(self):

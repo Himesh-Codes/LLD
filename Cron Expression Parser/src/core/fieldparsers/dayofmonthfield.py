@@ -1,6 +1,6 @@
 # Concrete Classes for Field Parser
-from abstract.cronfieldparser import CronFieldParser
-from core.cronfield import CronField
+from src.abstract.cronfieldparser import CronFieldParser
+from src.core.cronfield import CronField
 
 class DayOfMonthFieldParser(CronFieldParser):
     def parse(self, field_expr: str):

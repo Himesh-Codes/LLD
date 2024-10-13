@@ -1,9 +1,9 @@
 # Concrete Classes for Field Parser
-from abstract.cronfieldparser import CronFieldParser
-from core.cronfield import CronField
-from config.constants import DayWeekFormats
-from config.constants import DAY_MAP
-from custom.cronexceptions import FieldExpansionError
+from src.abstract.cronfieldparser import CronFieldParser
+from src.core.cronfield import CronField
+from src.config.constants import DayWeekFormats
+from src.config.constants import DAY_MAP
+from src.custom.cronexceptions import FieldExpansionError
 
 class DayOfWeekFieldParser(CronFieldParser):
 
@@ -22,6 +22,8 @@ class DayOfWeekFieldParser(CronFieldParser):
                 start_day, end_day = day_field.split("-")
                 start = DAY_MAP[start_day.upper()]
                 end = DAY_MAP[end_day.upper()]
+                if not(0 <= start <= 6 and 0 <= end <= 6 and start < end):
+                    raise FieldExpansionError(f"Invalid range for week days") 
                 return list(range(start, end + 1))
             elif "," in day_field:
                 days = day_field.split(",")

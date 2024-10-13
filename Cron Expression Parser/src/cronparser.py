@@ -1,6 +1,6 @@
-from config.parsestrategy import ParseStrategy
-from core.parsestrategies.dayweekrangestrategy import DayOfWeekRangeCronStrategy
-from core.parsestrategies.standardstrategy import StandardCronStrategy
+from src.config.parsestrategy import ParseStrategy
+from src.core.parsestrategies.dayweekrangestrategy import DayOfWeekRangeCronStrategy
+from src.core.parsestrategies.standardstrategy import StandardCronStrategy
 
 # CronParser Class Using Strategy Pattern
 class CronParser:
