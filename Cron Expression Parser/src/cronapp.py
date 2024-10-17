@@ -42,3 +42,7 @@ class CronApp:
             except Exception as e:
                 raise CronParsingError(e)
 
+
+if __name__ == "__main__":
+    app = CronApp()
+    app.run("1,2-40/15 0 1,15 * 1-5 /usr/bin/find", ParseStrategy.STANDARD)

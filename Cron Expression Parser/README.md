@@ -32,3 +32,13 @@ if __name__ == "__main__":
 
 - Goto /tst:
   - Run /tst/testcronparse.py (python -m unittest testcronparse.py): Ensure that all testcases are passed.
+
+## Extension
+
+- `*/15 0 1,15 * 1-5 /usr/bin/find -v foo yoo`
+- Extra fields: Append this arguments with command
+
+- `*/15 0 1,15 * 1-5 2024-2028 /usr/bin/find`
+
+- Custom range wrapper : `*/15 0 1,15 * 5-2 /usr/bin/find`
+- Multiple operations in a field: `1,2-40/15 0 1,15 * 1-5 /usr/bin/find`
